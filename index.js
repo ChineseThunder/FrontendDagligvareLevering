@@ -8,6 +8,7 @@ import {
 import { initNavigate } from "./pages/navigate/navigate.js"
 import { initProducts } from "./pages/products/products.js"
 import { initFindProduct } from "./pages/findProduct/findProduct.js"
+import { initAddProduct} from "./pages/addProduct/addProduct.js";
 
 window.addEventListener("load", async () => {
 
@@ -16,6 +17,7 @@ window.addEventListener("load", async () => {
   const templateFindProduct = await loadHtml("./pages/findProduct/findProduct.html")
   const templateNavigate = await loadHtml("./pages/navigate/navigate.html")
   const templateNotFound = await loadHtml("./pages/notFound/notFound.html")
+  const templateAddProduct = await loadHtml("./pages/addProduct/addProduct.html")
 
   adjustForMissingHash()
 
@@ -40,6 +42,10 @@ window.addEventListener("load", async () => {
       "/find-product": (match) => {
         renderTemplate(templateFindProduct, "content")
         initFindProduct(match)
+      },
+      "/add-product": (match) => {
+        renderTemplate(templateAddProduct, "content")
+        initAddProduct(match)
       },
 
       "/navigate-programatically": () => {

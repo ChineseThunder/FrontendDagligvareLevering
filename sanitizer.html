@@ -1,0 +1,39 @@
+https://docs.google.com/document/d/14aC77ITi9sLCMruYUchu4L93dBqKnoja3I7TwR0lXw8/edit#
+
+Using DOMPurify to protect against XSS on your clients.
+Due to the strategy I have introduced to create dynamic "complex" data structures (UL's Table's etc.), and generally, whenever you can't guarantee that whatever you put into an innerHTML property is OK, you should ALWAYS do the following when you use the innerHTML property.
+
+In your index.html file, include DOMPurify like this, in the head-section:
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+
+This will make DOMPurify globally accessible in all your JavaScript files, so you can sanitize input like this:
+
+aDomNode.innerHTML = DOMPurify.sanitize(dynamicallyGeneratedNodes)
+
+The lines in BOLD below show how little is needed to achieve this increased security :-)
+Example (Create List-items for an unordered list)
+//Simulates "Evil" Untrusted data
+const data = ["A", "B", "C  <img src='x' onerror=alert('Hacked')>"]
+const listItems = data.map(str => `<li>${str}</li>`).join("")
+
+//Assuming we have an empty UL-tag with id="ul-demo"
+document.getElementById("ul-demo").innerHTML = DOMPurify.sanitize(listItems)
+//See what happens without sanitizing the string
+DOMPurify with TableRows
+DOMPurify will not work with tables out of the box, but this small utility function (include it in your future utils.js file) solves the problem:
+
+function sanitizeStringWithTableRows(tableRows) {
+let secureRows = DOMPurify.sanitize("<table>" + tableRows + "</table>")
+secureRows = secureRows.replace("<table>", "").replace("</table>", "")
+return secureRows
+}
+Example (Create Table-rows for a table)
+const data = ["A", "B", "C  <img src='x' onerror=alert('Hacked')>"]
+const tableRows= data.map(str => `<tr><td>${str}<td></tr>`).join("")
+//Assuming we have an empty TBODY-tag with id="tbody"
+const sanitizedRows = sanitizeStringWithTableRows(tableRows)
+document.getElementById("tbody").innerHTML = sanitizedRows
+
+//See what happens without sanitizing tableRows
+

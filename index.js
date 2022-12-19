@@ -6,7 +6,6 @@ import {
 } from "./utils.js"
 
 import { initNavigate } from "./pages/navigate/navigate.js"
-import { showMatchObject } from "./pages/show-match/match.js"
 import { initProducts } from "./pages/products/products.js"
 import { initFindProduct } from "./pages/findProduct/findProduct.js"
 
@@ -16,7 +15,6 @@ window.addEventListener("load", async () => {
   const templateProducts = await loadHtml("./pages/products/products.html")
   const templateFindProduct = await loadHtml("./pages/findProduct/findProduct.html")
   const templateNavigate = await loadHtml("./pages/navigate/navigate.html")
-  const templateMatch = await loadHtml("./pages/show-match/match.html")
   const templateNotFound = await loadHtml("./pages/notFound/notFound.html")
 
   adjustForMissingHash()
@@ -47,11 +45,6 @@ window.addEventListener("load", async () => {
       "/navigate-programatically": () => {
         renderTemplate(templateNavigate, "content")
         initNavigate()
-      },
-
-      "/show-match": (match) => {
-        renderTemplate(templateMatch, "content")
-        showMatchObject(match)
       }
     })
     .notFound(() => {

@@ -12,7 +12,7 @@ import { initAddProduct} from "./pages/addProduct/addProduct.js";
 
 window.addEventListener("load", async () => {
 
-  const templateAbout = await loadHtml("./pages/about/home.html")
+  const templateHome = await loadHtml("./pages/home/home.html")
   const templateProducts = await loadHtml("./pages/products/products.html")
   const templateFindProduct = await loadHtml("./pages/findProduct/findProduct.html")
   const templateNavigate = await loadHtml("./pages/navigate/navigate.html")
@@ -33,8 +33,10 @@ window.addEventListener("load", async () => {
       }
     })
     .on({
-      "/home": () => renderTemplate(templateAbout, "content"),
-
+      "/home": () => renderTemplate(templateHome, "content"),
+      "/": () => {
+        renderTemplate(templateHome, "content")
+      },
       "/products": () => {
         renderTemplate(templateProducts, "content")
         initProducts()

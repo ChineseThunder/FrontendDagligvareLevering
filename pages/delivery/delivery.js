@@ -1,12 +1,24 @@
 import {sanitizeStringWithTableRows} from "../../utils.js";
 
 const URL = "http://localhost:8080/api/delivery"
+const URL2 = "http://localhost:8080/api/delivery/"
+
 
 
 export async function initAddDelivery(match) {
     document.getElementById("btn-add-delivery").onclick = addDelivery
     document.getElementById("btn-get-all-orders").onclick = getAllDeliveries
     getAllDeliveries()
+    document.getElementById("btn-fetch-delivery").onclick = fetchDelivery
+    if (match?.params?.id) {
+        const id = match.params.id
+        try {
+            renderDelivery(id)
+        } catch (err) {
+            document.getElementById("error").innerText = "Could not find product: " + id
+        }
+    }
+
 }
 
 function addDelivery() {
@@ -52,8 +64,36 @@ function showAllData(data) {
 
         const tableRowsString = tableRowsArray.join("\n")
         document.getElementById("tbl-body").innerHTML = sanitizeStringWithTableRows(tableRowsString)
-
 }
 
+async function fetchDelivery() {
+    document.getElementById("error").innerText = ""
+    const id = document.getElementById("product-id-input").value
+    if (!id) {
+        document.getElementById("error").innerText = "Please provide an id"
+        return
+    }
+    try {
+        renderDelivery(id)
+    } catch (err) {
+        console.log("UPS " + err.message)
+    }
+}
+
+async function renderDelivery(id) {
+    try {
+        const delivery = await fetch(URL2 + id).then(res => res.json())
+        //jsonplaceholder returns an empty object for users not found, NOT an error
+        if (Object.keys(delivery).length === 0) {  //checks for an empty object = {}
+            throw new Error("No user found for id:" + id)
+        }
+        document.getElementById("id_find").innerText = delivery.id;
+        document.getElementById("deliverydate").innerText = delivery.deliveryDate;
+        document.getElementById("fromWarehouse").innerText = delivery.fromWarehouse;
+        document.getElementById("destination").innerText = delivery.destination;
+    } catch (err) {
+        document.getElementById("error").innerText = err
+    }
+}
 
 

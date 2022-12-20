@@ -41,12 +41,12 @@ export async function getAllDeliveries() {
 }
 
 function showAllData(data) {
-        const tableRowsArray = data.map(orders => `
+        const tableRowsArray = data.map(delivery => `
           <tr>                                
-            <td>${orders.id} </td>              
-            <td>${orders.deliveryDate} </td>                     
-            <td>${orders.fromWarehouse} </td> 
-            <td>${orders.destination} </td>  
+            <td>${delivery.id} </td>              
+            <td>${delivery.deliveryDate} </td>                     
+            <td>${delivery.fromWarehouse} </td> 
+            <td>${delivery.destination} </td>  
             <td>
           </tr>`)
 

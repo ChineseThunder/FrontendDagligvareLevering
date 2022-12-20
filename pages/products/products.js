@@ -30,3 +30,4 @@ function showAllData(data) {
   const tableRowsString = tableRowsArray.join("\n")
   document.getElementById("tbl-body").innerHTML = sanitizeStringWithTableRows(tableRowsString)
 }
+

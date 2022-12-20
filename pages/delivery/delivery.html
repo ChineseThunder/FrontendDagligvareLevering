@@ -1,32 +1,33 @@
 <div class="template">
-    <h3>Add Deliveries</h3>
-    <table class="table">
+    <h1 class="col-sm-12 ">Add Deliveries</h1>
+    <table class="table col-sm-12 table-striped">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>DeliveryDate</th>
-            <th>From Warehouse</th>
-            <th>Destination</th>
+            <th class="col-4">ID</th>
+            <th class="col-4">DeliveryDate</th>
+            <th class="col-4">From Warehouse</th>
+            <th class="col-4">Destination</th>
         </tr>
         </thead>
         <tbody id="tbl-body">
         </tbody>
     </table>
-    <button id="btn-get-all-orders" class="btn btn-secondary">Get All Products</button>
-    <h3>Add Delivery</h3>
-    <div class="form">
-        <input type="text" id="fromWarehouse_id" placeholder="From Warehouse" required>
+    <button id="btn-get-all-orders" class="btn btn-primary col-sm-12">Get All Products</button>
+
+    <h1 class="col-sm-12">Add Delivery</h1>
+
+        <input class="col-sm-12" type="text" id="fromWarehouse_id" placeholder="From Warehouse " required>
         <label for="fromWarehouse_id"></label>
 
-        <input type="text" id="destination_id" placeholder="Destination" required>
+        <input class="col-sm-12" type="text" id="destination_id" placeholder="Destination" required>
         <label for="destination_id"></label>
+    <button id="btn-add-delivery" class="btn btn-primary col-sm-12">Add delivery</button>
 
-        <button id="btn-add-delivery" class="btn btn-secondary">Add delivery</button>
-    </div>
+    <h1 class="col-sm-12">Find Delivery</h1>
+    <input class="col-sm-12" id="product-id-input" placeholder="find delivery by id"/>&nbsp;
+    <label for="product-id-input"></label>
 
-    <h3>Find Delivery</h3>
-    <input id="product-id-input"/>&nbsp;
-    <button id="btn-fetch-delivery">Search</button>
+    <button class="btn btn-primary col-sm-12 " id="btn-fetch-delivery">Search</button>
     <h3 style="margin-top: 1em" id="id"></h3>
     <p id="id_find"></p>
     <p id="deliverydate"></p>
